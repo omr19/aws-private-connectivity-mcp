@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials
+
+# AWS and deployment artifacts
+cdk.out/
+.aws-sam/
+*.zip
+
+# Terraform (if used experimentally)
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Kiro local settings
+.kiro/settings/mcp.json
+!.kiro/settings/mcp.json.example
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Logs and temporary files
+*.log
+tmp/
+dist/
+build/
+

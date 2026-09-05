@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "privatepath-local": {
+      "url": "http://127.0.0.1:8000/mcp",
+      "disabled": false,
+      "autoApprove": []
+    },
+    "privatepath-aws": {
+      "url": "${PRIVATEPATH_MCP_URL}",
+      "headers": {
+        "Authorization": "Bearer ${PRIVATEPATH_MCP_TOKEN}"
+      },
+      "disabled": true,
+      "autoApprove": []
+    }
+  }
+}
