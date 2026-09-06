@@ -54,14 +54,14 @@ Only one fault will be enabled at a time. The MCP server will recommend remediat
 
 Each phase has a working checkpoint. Do not continue until the checkpoint can be explained without relying on generated summaries.
 
-### Phase 1 — Local FastMCP server
+### Phase 1 — Local FastMCP server (completed)
 
 - Implement one mock `get_lab_topology` tool.
 - Run the server locally.
 - Discover and invoke it with MCP Inspector.
 - Observe a validation error.
 
-Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results.
+Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results. **Completed:** the server was started locally on `127.0.0.1:8000`, connected through MCP Inspector, and `get_lab_topology` returned structured JSON.
 
 ### Phase 2 — Direct MCP client and Kiro
 
@@ -70,9 +70,11 @@ Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results.
 - Register the local server in Kiro.
 - Keep tool auto-approval disabled.
 
-Checkpoint: invoke the same server from the direct client, MCP Inspector, and Kiro.
+Checkpoint: invoke the same server from the direct client, MCP Inspector, and Kiro. **Completed:** all three clients discovered and invoked `get_lab_topology` successfully.
 
 ### Phase 3 — Healthy AWS lab
+
+Before provisioning the lab, the first AWS-backed checkpoint is complete: `get_aws_identity` successfully called AWS STS through boto3 and confirmed the `your-sandbox-profile` assumed role in `eu-west-3`.
 
 - Provision one VPC, two private subnets, and two small EC2 applications.
 - Add one Secrets Manager interface endpoint.
@@ -147,4 +149,6 @@ Directories will be populated progressively during the lab rather than generated
 
 ## Status
 
-Project scaffold created. Implementation intentionally begins with Phase 1 in Kiro.
+Phases 1 and 2 completed in Kiro. The first AWS-backed identity check is working, and the CDK infrastructure stack has synthesized and passed review with no deployment yet. The returned topology is intentionally marked `mock`; the healthy AWS lab is the next deployment checkpoint.
+
+See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan.
