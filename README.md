@@ -2,7 +2,7 @@
 
 A deliberately small, hands-on project for learning the Model Context Protocol (MCP) end to end while diagnosing fixed AWS private-connectivity scenarios.
 
-The project will be built manually in Kiro and deployed to Amazon Bedrock AgentCore Runtime in `eu-west-3`. Infrastructure will be reproducible with AWS CDK for Python.
+The compact milestone is built manually in Kiro and runs locally with Streamable HTTP in `eu-west-3`. Infrastructure is reproducible with AWS CDK for Python; Amazon Bedrock AgentCore Runtime is a documented optional extension.
 
 ## Primary learning objective
 
@@ -12,7 +12,7 @@ Build enough of every layer to explain this flow clearly:
 User
   -> Kiro host
   -> MCP client
-  -> FastMCP server on AgentCore Runtime
+  -> FastMCP server (local Streamable HTTP; AgentCore-ready contract)
   -> AWS SDK
   -> AWS networking and IAM evidence
   -> structured MCP result
@@ -95,13 +95,13 @@ Checkpoint: every implemented diagnostic reports the expected healthy evidence a
 
 The CDK source and synthesized CloudFormation template are the saved IaC. You do not need to run `npx aws-cdk deploy` again while the current lab is running; run it only for a future redeployment or update. CloudFormation does not add a separate charge for AWS-native resources, but deployed resources continue to incur their normal charges. The CDK bootstrap stack may be retained to simplify future reproduction. See `docs/runbook.md` for the retention decision and teardown verification.
 
-## Phase 5 — AgentCore deployment
+## Phase 5 — Production-shaped deployment packaging (completed)
 
-- Package and deploy the FastMCP server to AgentCore Runtime.
-- Assign least-privilege AWS permissions.
-- Connect the direct client, Inspector, and Kiro to the remote endpoint.
+- Define the deployment boundary, least-privilege IAM requirements, and reproducible CDK workflow.
+- Document the local-to-remote MCP contract so the same tools can be moved to AgentCore Runtime.
+- Capture the operational runbook, cost controls, teardown process, and portfolio evidence.
 
-Checkpoint: the same tools work locally and remotely.
+Checkpoint: the project is reproducible and production-shaped locally. AgentCore Runtime is an optional follow-on, not required for this compact milestone.
 
 ### Phase 6 — Controlled troubleshooting (completed)
 
@@ -112,7 +112,7 @@ Checkpoint: the same tools work locally and remotely.
 
 Checkpoint: distinguish security-group, endpoint, route, and IAM failures.
 
-### Phase 7 — Document and remove (documentation completed; teardown pending)
+### Phase 7 — Document and remove (completed)
 
 - Capture the architecture and MCP sequence.
 - Record expected results and limitations.
@@ -153,6 +153,8 @@ Directories will be populated progressively during the lab rather than generated
 
 ## Status
 
-Phases 1–4 and Phase 6 are completed. The project now has a working local FastMCP server, direct client, Inspector and Kiro integrations, deployed CDK infrastructure in `eu-west-3`, live AWS resource and identity tools, EC2 and interface-endpoint Reachability Analyzer diagnostics, S3 gateway endpoint inspection, and controlled fault/remediation evidence. Phase 5 (AgentCore deployment) remains intentionally out of scope for this compact milestone. Phase 7 documentation is complete; final AWS teardown remains a release checklist item. The original `get_lab_topology` response remains intentionally marked `mock` as a baseline tool.
+Phases 1–7 are completed for the compact milestone. The project includes a working local FastMCP server, direct client, Inspector and Kiro integrations, reproducible CDK/IaC, live AWS identity and resource tools, EC2 and interface-endpoint Reachability Analyzer diagnostics, S3 gateway endpoint inspection, controlled fault/remediation evidence, portfolio documentation, and verified AWS teardown. AgentCore Runtime remains a documented optional extension rather than an unperformed deployment. The original `get_lab_topology` response remains intentionally marked `mock` as a baseline tool.
 
 See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan. See [Reproduction and Teardown Runbook](docs/runbook.md) for complete IaC reproduction and cleanup instructions.
+
+See the [architecture diagram](docs/diagrams/01-end-to-end-architecture.md), [MCP sequence diagram](docs/diagrams/02-mcp-request-flow.md), and [troubleshooting flow](docs/diagrams/03-diagnosis-remediation-flow.md).

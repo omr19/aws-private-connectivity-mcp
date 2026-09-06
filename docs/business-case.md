@@ -27,6 +27,7 @@ This project packages that investigation as a small MCP toolset. An MCP host suc
 - Deployed `InfrastructureStack` in `eu-west-3` and captured the resource outputs for the lab.
 - Created and reviewed the CDK stack for the healthy lab, including project tags, two isolated subnets, EC2 applications, S3 gateway endpoint, and Secrets Manager interface endpoint.
 - Bootstrapped the CDK environment in `eu-west-3` and deployed the tagged application stack.
+- Packaged the completed local workflow as a production-shaped, reproducible milestone with explicit AgentCore extension boundaries, runbook, cost controls, teardown verification, and portfolio diagrams.
 
 `get_lab_topology` remains deliberately marked `status: mock`; the other tools demonstrate live AWS identity, CloudFormation, EC2, VPC endpoint, and Reachability Analyzer integration.
 
@@ -92,3 +93,11 @@ These files must reference the implemented MCP flow, CDK/IaC deployment, IAM tro
 - Distinguish network reachability from IAM authorization.
 - Reprovision and remove the lab safely with IaC.
 - Store no credentials, Inspector tokens, or production data in Git.
+
+## Architecture diagrams
+
+- [End-to-end architecture](diagrams/01-end-to-end-architecture.md)
+- [MCP request flow](diagrams/02-mcp-request-flow.md)
+- [Diagnosis and remediation flow](diagrams/03-diagnosis-remediation-flow.md)
+
+Phase 5 is complete for this compact scope as deployment packaging and operational readiness. A future AgentCore Runtime deployment can reuse the same tool contract and IAM boundaries; it is intentionally not presented as already deployed.
