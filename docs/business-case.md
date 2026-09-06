@@ -29,7 +29,7 @@ The identity tool is the first non-mock AWS integration. It confirms that the se
 
 ## Phase 1 evidence and screenshot plan
 
-Screenshots should be copied into `docs/screenshots/` using the names below. The temporary screenshots shared in chat are the source evidence; do not commit browser tokens or credentials visible in URLs. Screenshots 01–07 are now captured and ready for the final documentation commit.
+Screenshots should be copied into `docs/screenshots/` using the names below. The temporary screenshots shared in chat are the source evidence; do not commit browser tokens or credentials visible in URLs. Screenshots 01–11 are now captured and ready for the final documentation commit.
 
 | File | Phase evidence | Status |
 | --- | --- | --- |
@@ -40,6 +40,10 @@ Screenshots should be copied into `docs/screenshots/` using the names below. The
 | `05-tool-result.png` | Tool execution returns topology JSON | Captured |
 | `06-healthy-ec2-path.png` | Reachability Analyzer confirms the healthy EC2 path | Captured |
 | `07-blocked-ec2-path.png` | MCP identifies the intentional security-group failure | Captured |
+| `08-healthy-secrets-endpoint.png` | Reachability Analyzer confirms the healthy Secrets Manager interface endpoint | Captured |
+| `09-blocked-secrets-endpoint.png` | MCP identifies the interface endpoint security-group failure | Captured |
+| `10-healthy-secrets-endpoint.png` | Endpoint access is restored and confirmed | Captured |
+| `11-s3-gateway-endpoint.png` | MCP verifies S3 gateway endpoint route-table associations | Captured |
 
 Expected layout:
 
@@ -52,9 +56,13 @@ docs/screenshots/
   05-tool-result.png
   06-healthy-ec2-path.png
   07-blocked-ec2-path.png
+  08-healthy-secrets-endpoint.png
+  09-blocked-secrets-endpoint.png
+  10-healthy-secrets-endpoint.png
+  11-s3-gateway-endpoint.png
 ```
 
-Final documentation gate satisfied: screenshots 01–07 are present in this directory and marked captured above.
+Final documentation gate satisfied: screenshots 01–11 are present in this directory and marked captured above.
 
 ## Intended production-shaped use case
 
