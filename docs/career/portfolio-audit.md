@@ -11,9 +11,9 @@
 - [x] Screenshots 01–11 are stored under docs/screenshots/.
 - [x] Environment-specific CDK outputs are excluded from Git.
 - [ ] Merge the reviewed develop branch into main when the portfolio gate is approved.
-- [ ] Keep the CDK source and synthesized template as the reusable IaC record; do not redeploy while the current lab is already running.
-- [ ] If the lab is no longer needed, run the teardown and verify every application resource is gone.
-- [ ] Retain the CDK bootstrap stack only if it supports future CDK reproduction; it is separate from the application stack.
+- [x] Keep the CDK source and synthesized template as the reusable IaC record; do not redeploy while the current lab is already running.
+- [x] Run the teardown and verify every application resource is gone.
+- [x] Retain the CDK bootstrap stack for future CDK reproduction; it is separate from the application stack.
 
 ## Security and cost notes
 
@@ -25,13 +25,13 @@
 
 ## Teardown checklist
 
-- [ ] Run `npx aws-cdk destroy --force` from `infrastructure/`.
-- [ ] Confirm `InfrastructureStack` is absent from CloudFormation.
-- [ ] Confirm no project-tagged EC2 instances or VPC endpoints remain.
-- [ ] Confirm the lab S3 bucket and Secrets Manager secret are removed.
-- [ ] Confirm no leftover Reachability Analyzer paths or analyses require cleanup.
-- [ ] Check the AWS console and cost view after teardown.
-- [ ] Preserve the CDK bootstrap stack only if another project still uses it.
+- [x] Run `npx aws-cdk destroy --force` from `infrastructure/`.
+- [x] Confirm `InfrastructureStack` is absent from CloudFormation.
+- [x] Confirm no project-tagged EC2 instances or VPC endpoints remain.
+- [x] Confirm the lab S3 bucket and Secrets Manager secret are removed.
+- [x] Confirm no leftover Reachability Analyzer paths or analyses require cleanup.
+- [x] Check the AWS console and cost view after teardown.
+- [x] Preserve the CDK bootstrap stack for future reproduction.
 
 See `docs/runbook.md` for the complete reproduction and teardown procedure.
 
