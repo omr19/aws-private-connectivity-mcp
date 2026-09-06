@@ -29,15 +29,17 @@ The identity tool is the first non-mock AWS integration. It confirms that the se
 
 ## Phase 1 evidence and screenshot plan
 
-Screenshots should be copied into `docs/screenshots/` using the names below. The temporary screenshots shared in chat are the source evidence; do not commit browser tokens or credentials visible in URLs.
+Screenshots should be copied into `docs/screenshots/` using the names below. The temporary screenshots shared in chat are the source evidence; do not commit browser tokens or credentials visible in URLs. Screenshots 01–07 are now captured and ready for the final documentation commit.
 
-| File | Phase evidence |
-| --- | --- |
-| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup |
-| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` |
-| `03-inspector-connected.png` | `privatepath-local` connected over Streamable HTTP |
-| `04-tools-list.png` | Inspector discovers `get_lab_topology` |
-| `05-tool-result.png` | Tool execution returns topology JSON |
+| File | Phase evidence | Status |
+| --- | --- | --- |
+| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup | Captured |
+| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` | Captured |
+| `03-inspector-connected.png` | `privatepath-local` connected over Streamable HTTP | Captured |
+| `04-tools-list.png` | Inspector discovers `get_lab_topology` | Captured |
+| `05-tool-result.png` | Tool execution returns topology JSON | Captured |
+| `06-healthy-ec2-path.png` | Reachability Analyzer confirms the healthy EC2 path | Captured |
+| `07-blocked-ec2-path.png` | MCP identifies the intentional security-group failure | Captured |
 
 Expected layout:
 
@@ -48,7 +50,11 @@ docs/screenshots/
   03-inspector-connected.png
   04-tools-list.png
   05-tool-result.png
+  06-healthy-ec2-path.png
+  07-blocked-ec2-path.png
 ```
+
+Final documentation gate satisfied: screenshots 01–07 are present in this directory and marked captured above.
 
 ## Intended production-shaped use case
 
