@@ -72,7 +72,7 @@ Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results.
 
 Checkpoint: invoke the same server from the direct client, MCP Inspector, and Kiro. **Completed:** all three clients discovered and invoked `get_lab_topology` successfully.
 
-### Phase 3 — Healthy AWS lab
+### Phase 3 — Healthy AWS lab (completed)
 
 Before provisioning the lab, the first AWS-backed checkpoint is complete: `get_aws_identity` successfully called AWS STS through boto3 and confirmed the `your-sandbox-profile` assumed role in `eu-west-3`.
 
@@ -83,13 +83,13 @@ Before provisioning the lab, the first AWS-backed checkpoint is complete: `get_a
 
 Checkpoint: prove the lab is healthy independently of MCP.
 
-### Phase 4 — AWS-backed MCP tools
+### Phase 4 — AWS-backed MCP tools (completed)
 
 - Replace mock results with narrowly scoped AWS SDK calls.
 - Use Reachability Analyzer for the EC2 path.
 - Return evidence, root cause, and proposed remediation.
 
-Checkpoint: every tool reports `PASS` against the healthy lab.
+Checkpoint: every implemented diagnostic reports the expected healthy evidence against the deployed lab.
 
 ### Cost and retention note
 
@@ -103,7 +103,7 @@ The CDK source and synthesized CloudFormation template are the saved IaC. You do
 
 Checkpoint: the same tools work locally and remotely.
 
-### Phase 6 — Controlled troubleshooting
+### Phase 6 — Controlled troubleshooting (completed)
 
 - Inject one fault at a time.
 - Diagnose it through Kiro.
@@ -112,7 +112,7 @@ Checkpoint: the same tools work locally and remotely.
 
 Checkpoint: distinguish security-group, endpoint, route, and IAM failures.
 
-### Phase 7 — Document and remove
+### Phase 7 — Document and remove (documentation completed; teardown pending)
 
 - Capture the architecture and MCP sequence.
 - Record expected results and limitations.
@@ -153,6 +153,6 @@ Directories will be populated progressively during the lab rather than generated
 
 ## Status
 
-Phases 1 and 2 completed in Kiro. The AWS-backed identity and resource checks are working, and the CDK infrastructure stack has been deployed and validated in `eu-west-3`. The returned topology is intentionally marked `mock`; the healthy AWS lab is the next deployment checkpoint.
+Phases 1–4 and Phase 6 are completed. The project now has a working local FastMCP server, direct client, Inspector and Kiro integrations, deployed CDK infrastructure in `eu-west-3`, live AWS resource and identity tools, EC2 and interface-endpoint Reachability Analyzer diagnostics, S3 gateway endpoint inspection, and controlled fault/remediation evidence. Phase 5 (AgentCore deployment) remains intentionally out of scope for this compact milestone. Phase 7 documentation is complete; final AWS teardown remains a release checklist item. The original `get_lab_topology` response remains intentionally marked `mock` as a baseline tool.
 
 See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan. See [Reproduction and Teardown Runbook](docs/runbook.md) for complete IaC reproduction and cleanup instructions.
