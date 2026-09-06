@@ -34,7 +34,7 @@ npx aws-cdk bootstrap aws://<ACCOUNT_ID>/eu-west-3
 
 Bootstrap is an account/region prerequisite. It may remain after the application stack is destroyed; remove it only when it is no longer used by any CDK project. CloudFormation itself has no additional charge for AWS-native resources, but the resources represented by the application stack are billed normally. Leaving the stack record does not make EC2 instances, interface endpoints, Secrets Manager, or other resources free. Keeping the CDK bootstrap stack can make future reproduction easier, but keeping the application stack deployed should be treated as an active-cost decision.
 
-## 3. Synthesize and deploy
+## 3. Synthesize and deploy (initial setup or future redeployment)
 
 ```bash
 npx aws-cdk synth
@@ -42,7 +42,7 @@ npx aws-cdk diff
 npx aws-cdk deploy --require-approval broadening --outputs-file cdk-outputs.json
 ```
 
-Record the CloudFormation outputs. The stack creates the tagged VPC, two isolated-subnet EC2 instances, an S3 gateway endpoint, a Secrets Manager interface endpoint, a private bucket, and a private secret.
+Run these commands only when creating the lab for the first time or intentionally redeploying it after teardown. If the lab is already running, do not run `deploy` again; use `npx aws-cdk diff` to preview changes instead. Record the CloudFormation outputs. The stack creates the tagged VPC, two isolated-subnet EC2 instances, an S3 gateway endpoint, a Secrets Manager interface endpoint, a private bucket, and a private secret.
 
 ## 4. Run the local MCP server
 

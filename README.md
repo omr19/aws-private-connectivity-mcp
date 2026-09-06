@@ -93,7 +93,7 @@ Checkpoint: every tool reports `PASS` against the healthy lab.
 
 ### Cost and retention note
 
-CloudFormation does not add a separate charge for AWS-native resources, but deployed resources continue to incur their normal charges. The CDK bootstrap stack may be retained to simplify future reproduction; the application stack should be retained only while its EC2 and VPC endpoint resources are intentionally in use. See `docs/runbook.md` for the retention decision and teardown verification.
+The CDK source and synthesized CloudFormation template are the saved IaC. You do not need to run `npx aws-cdk deploy` again while the current lab is running; run it only for a future redeployment or update. CloudFormation does not add a separate charge for AWS-native resources, but deployed resources continue to incur their normal charges. The CDK bootstrap stack may be retained to simplify future reproduction. See `docs/runbook.md` for the retention decision and teardown verification.
 
 ## Phase 5 — AgentCore deployment
 
@@ -153,6 +153,6 @@ Directories will be populated progressively during the lab rather than generated
 
 ## Status
 
-Phases 1 and 2 completed in Kiro. The first AWS-backed identity check is working, and the CDK infrastructure stack has synthesized and passed review with no deployment yet. The returned topology is intentionally marked `mock`; the healthy AWS lab is the next deployment checkpoint.
+Phases 1 and 2 completed in Kiro. The AWS-backed identity and resource checks are working, and the CDK infrastructure stack has been deployed and validated in `eu-west-3`. The returned topology is intentionally marked `mock`; the healthy AWS lab is the next deployment checkpoint.
 
 See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan. See [Reproduction and Teardown Runbook](docs/runbook.md) for complete IaC reproduction and cleanup instructions.
