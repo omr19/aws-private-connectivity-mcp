@@ -63,6 +63,13 @@ Each phase has a working checkpoint. Do not continue until the checkpoint can be
 
 Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results. **Completed:** the server was started locally on `127.0.0.1:8000`, connected through MCP Inspector, and `get_lab_topology` returned structured JSON.
 
+**Evidence:**
+
+![FastMCP server running](docs/screenshots/02-fastmcp-server-running.png)
+
+- [Project and environment](docs/screenshots/01-environment-and-repository.png)
+- [Inspector connection](docs/screenshots/03-inspector-connected.png)
+
 ### Phase 2 — Direct MCP client and Kiro
 
 - Build a minimal Python MCP client.
@@ -71,6 +78,13 @@ Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results.
 - Keep tool auto-approval disabled.
 
 Checkpoint: invoke the same server from the direct client, MCP Inspector, and Kiro. **Completed:** all three clients discovered and invoked `get_lab_topology` successfully.
+
+**Evidence:**
+
+![MCP tools discovered](docs/screenshots/04-tools-list.png)
+
+- [Initial tool result](docs/screenshots/05-tool-result.png)
+- [Direct client](client/test_client.py)
 
 ### Phase 3 — Healthy AWS lab (completed)
 
@@ -83,6 +97,14 @@ Before provisioning the lab, the first AWS-backed checkpoint is complete: `get_a
 
 Checkpoint: prove the lab is healthy independently of MCP.
 
+**Evidence:**
+
+![Healthy EC2 path](docs/screenshots/06-healthy-ec2-path.png)
+
+- [End-to-end architecture](docs/diagrams/01-end-to-end-architecture.md)
+- [Healthy Secrets Manager endpoint](docs/screenshots/08-healthy-secrets-endpoint.png)
+- [S3 gateway endpoint inspection](docs/screenshots/11-s3-gateway-endpoint.png)
+
 ### Phase 4 — AWS-backed MCP tools (completed)
 
 - Replace mock results with narrowly scoped AWS SDK calls.
@@ -90,6 +112,8 @@ Checkpoint: prove the lab is healthy independently of MCP.
 - Return evidence, root cause, and proposed remediation.
 
 Checkpoint: every implemented diagnostic reports the expected healthy evidence against the deployed lab.
+
+**Evidence:** [MCP request-flow diagram](docs/diagrams/02-mcp-request-flow.md) · [AWS-backed tool result](docs/screenshots/05-tool-result.png)
 
 ### Cost and retention note
 
@@ -103,6 +127,8 @@ The CDK source and synthesized CloudFormation template are the saved IaC. You do
 
 Checkpoint: the project is reproducible and production-shaped locally. AgentCore Runtime is an optional follow-on, not required for this compact milestone.
 
+**Evidence:** [CDK reproduction and teardown runbook](docs/runbook.md) · [Deployment architecture](docs/diagrams/01-end-to-end-architecture.md)
+
 ### Phase 6 — Controlled troubleshooting (completed)
 
 - Inject one fault at a time.
@@ -112,11 +138,20 @@ Checkpoint: the project is reproducible and production-shaped locally. AgentCore
 
 Checkpoint: distinguish security-group, endpoint, route, and IAM failures.
 
+**Evidence:**
+
+![Blocked EC2 path](docs/screenshots/07-blocked-ec2-path.png)
+
+- [Blocked Secrets Manager endpoint](docs/screenshots/09-blocked-secrets-endpoint.png)
+- [Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.md)
+
 ### Phase 7 — Document and remove (completed)
 
 - Capture the architecture and MCP sequence.
 - Record expected results and limitations.
 - Destroy all AWS resources and confirm cleanup.
+
+**Evidence:** [Reproduction and teardown runbook](docs/runbook.md) · [Complete screenshot evidence](docs/business-case.md#phase-1-evidence-and-screenshot-plan)
 
 ## Repository structure
 
