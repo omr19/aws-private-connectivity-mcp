@@ -73,6 +73,18 @@ Final documentation gate satisfied: screenshots 01–11 are present in this dire
 
 The target lab will model Application A reaching Application B over TCP 8080, Secrets Manager through an interface VPC endpoint, and S3 through a gateway VPC endpoint. MCP tools will report evidence, likely root cause, and proposed remediation for one controlled fault at a time. They will not mutate networking or IAM configuration.
 
+## Career packaging gate
+
+Before the final portfolio release, add the following reusable career artifacts under `docs/career/`:
+
+- `resume-bullets.md` — concise, evidence-based resume bullets.
+- `linkedin-summary.md` — professional project summary for LinkedIn.
+- `github-description.md` — repository description and short project pitch.
+- `career-demonstration-matrix.md` — mapping of project evidence to demonstrated skills.
+- `portfolio-audit.md` — final quality, security, cost, and reproducibility review.
+
+These files must reference the implemented MCP flow, CDK/IaC deployment, IAM troubleshooting, EC2 Reachability Analyzer evidence, interface endpoint diagnosis, S3 gateway endpoint inspection, and the captured screenshots.
+
 ## Success criteria
 
 - Explain Host, Client, Server, Tool, and transport roles.
