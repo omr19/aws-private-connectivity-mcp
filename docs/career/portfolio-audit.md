@@ -11,7 +11,9 @@
 - [x] Screenshots 01–11 are stored under docs/screenshots/.
 - [x] Environment-specific CDK outputs are excluded from Git.
 - [ ] Merge the reviewed develop branch into main when the portfolio gate is approved.
-- [ ] Destroy the AWS lab after the final demonstration.
+- [ ] Decide whether to retain the application stack for a short follow-up demo; CloudFormation has no additional charge, but deployed EC2 and interface-endpoint resources continue to incur normal charges.
+- [ ] If the lab is no longer needed, run the teardown and verify every application resource is gone.
+- [ ] Retain the CDK bootstrap stack only if it supports future CDK reproduction; it is separate from the application stack.
 
 ## Security and cost notes
 

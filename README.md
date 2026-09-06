@@ -91,7 +91,11 @@ Checkpoint: prove the lab is healthy independently of MCP.
 
 Checkpoint: every tool reports `PASS` against the healthy lab.
 
-### Phase 5 — AgentCore deployment
+### Cost and retention note
+
+CloudFormation does not add a separate charge for AWS-native resources, but deployed resources continue to incur their normal charges. The CDK bootstrap stack may be retained to simplify future reproduction; the application stack should be retained only while its EC2 and VPC endpoint resources are intentionally in use. See `docs/runbook.md` for the retention decision and teardown verification.
+
+## Phase 5 — AgentCore deployment
 
 - Package and deploy the FastMCP server to AgentCore Runtime.
 - Assign least-privilege AWS permissions.

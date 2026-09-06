@@ -32,7 +32,7 @@ source .venv/bin/activate
 npx aws-cdk bootstrap aws://<ACCOUNT_ID>/eu-west-3
 ```
 
-Bootstrap is an account/region prerequisite. It may remain after the lab is destroyed; remove it only when it is no longer used by any CDK project.
+Bootstrap is an account/region prerequisite. It may remain after the application stack is destroyed; remove it only when it is no longer used by any CDK project. CloudFormation itself has no additional charge for AWS-native resources, but the resources represented by the application stack are billed normally. Leaving the stack record does not make EC2 instances, interface endpoints, Secrets Manager, or other resources free. Keeping the CDK bootstrap stack can make future reproduction easier, but keeping the application stack deployed should be treated as an active-cost decision.
 
 ## 3. Synthesize and deploy
 
