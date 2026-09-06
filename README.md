@@ -41,14 +41,14 @@ No ALB or NLB is required. The interface endpoint connects to the AWS-managed Se
 
 Only one fault will be enabled at a time. The MCP server will recommend remediation but will not change AWS networking or IAM configuration.
 
-## Planned MCP tools
+## Implemented MCP tools
 
 | Tool | Purpose |
 | --- | --- |
 | `get_lab_topology` | Return the known lab resources and expected paths. |
 | `diagnose_ec2_path` | Run and normalize an EC2-to-EC2 Reachability Analyzer result. |
-| `diagnose_interface_endpoint` | Inspect endpoint state, subnet, DNS, and security-group configuration. |
-| `diagnose_s3_access` | Separate gateway-route failures from limited S3 authorization failures. |
+| `diagnose_secrets_endpoint` | Run and normalize Application A to the Secrets Manager interface endpoint on TCP 443. |
+| `inspect_s3_gateway_endpoint` | Inspect the S3 gateway endpoint state and route-table associations. |
 
 ## Learning sequence
 

@@ -20,10 +20,15 @@ This project packages that investigation as a small MCP toolset. An MCP host suc
 - Registered the server in Kiro Workspace MCP configuration with manual tool approval enabled.
 - Invoked the tool successfully from Kiro and received the same structured topology response.
 - Added and invoked `get_aws_identity`, confirming a real boto3 call through the `your-sandbox-profile` assumed role in `eu-west-3`.
+- Added and invoked `get_lab_resources`, returning the deployed CloudFormation outputs and resource inventory.
+- Added `diagnose_ec2_path` and validated healthy, blocked, and remediated TCP 8080 paths with Reachability Analyzer.
+- Added `diagnose_secrets_endpoint` and validated healthy, blocked, and remediated TCP 443 access to the Secrets Manager interface endpoint.
+- Added `inspect_s3_gateway_endpoint` to verify the S3 gateway endpoint and route-table associations without an additional Reachability Analyzer charge.
+- Deployed `InfrastructureStack` in `eu-west-3` and captured the resource outputs for the lab.
 - Created and reviewed the CDK stack for the healthy lab, including project tags, two isolated subnets, EC2 applications, S3 gateway endpoint, and Secrets Manager interface endpoint.
-- Bootstrapped the CDK environment in `eu-west-3`; the application stack remains intentionally undeployed at this checkpoint.
+- Bootstrapped the CDK environment in `eu-west-3` and deployed the tagged application stack.
 
-The current response is deliberately marked `status: mock`. This proves the MCP flow across three clients before AWS resources, permissions, and failure scenarios are introduced.
+`get_lab_topology` remains deliberately marked `status: mock`; the other tools demonstrate live AWS identity, CloudFormation, EC2, VPC endpoint, and Reachability Analyzer integration.
 
 The identity tool is the first non-mock AWS integration. It confirms that the server process uses its own exported AWS profile and region, which is why the initial default-profile result differed from the final assumed-role result.
 
