@@ -54,6 +54,31 @@ Only one fault will be enabled at a time. The MCP server will recommend remediat
 
 Each phase has a working checkpoint. Do not continue until the checkpoint can be explained without relying on generated summaries.
 
+## Architecture diagrams
+
+The diagrams below are rendered directly in this README. Editable Mermaid source files remain under `docs/diagrams/` alongside the SVG presentation assets.
+
+### End-to-end solution
+
+![End-to-end AWS private connectivity MCP architecture](docs/diagrams/01-end-to-end-architecture.svg)
+
+1. Kiro, MCP Inspector, or the direct client sends an MCP request.
+2. The FastMCP server discovers and runs a narrowly scoped diagnostic tool.
+3. boto3 calls AWS APIs using the configured profile, region, and IAM permissions.
+4. AWS returns network or endpoint evidence, which the server normalizes into a structured MCP result.
+
+### MCP request flow
+
+![MCP request flow](docs/diagrams/02-mcp-request-flow.svg)
+
+The sequence makes the Host, Client, Server, Tool, transport, and AWS responsibility boundaries visible.
+
+### Diagnosis and remediation flow
+
+![Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.svg)
+
+The MCP server reports evidence and a likely cause. A human reviews and applies any change, then reruns the diagnostic to confirm recovery.
+
 ### Phase 1 — Local FastMCP server (completed)
 
 - Implement one mock `get_lab_topology` tool.
@@ -113,7 +138,7 @@ Checkpoint: prove the lab is healthy independently of MCP.
 
 Checkpoint: every implemented diagnostic reports the expected healthy evidence against the deployed lab.
 
-**Evidence:** [MCP request-flow diagram](docs/diagrams/02-mcp-request-flow.md) · [AWS-backed tool result](docs/screenshots/05-tool-result.png)
+**Evidence:** [MCP request-flow diagram](docs/diagrams/02-mcp-request-flow.svg) · [AWS-backed tool result](docs/screenshots/05-tool-result.png)
 
 ### Cost and retention note
 
@@ -127,7 +152,7 @@ The CDK source and synthesized CloudFormation template are the saved IaC. You do
 
 Checkpoint: the project is reproducible and production-shaped locally. AgentCore Runtime is an optional follow-on, not required for this compact milestone.
 
-**Evidence:** [CDK reproduction and teardown runbook](docs/runbook.md) · [Deployment architecture](docs/diagrams/01-end-to-end-architecture.md)
+**Evidence:** [CDK reproduction and teardown runbook](docs/runbook.md) · [Deployment architecture](docs/diagrams/01-end-to-end-architecture.svg)
 
 ### Phase 6 — Controlled troubleshooting (completed)
 
@@ -143,7 +168,7 @@ Checkpoint: distinguish security-group, endpoint, route, and IAM failures.
 ![Blocked EC2 path](docs/screenshots/07-blocked-ec2-path.png)
 
 - [Blocked Secrets Manager endpoint](docs/screenshots/09-blocked-secrets-endpoint.png)
-- [Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.md)
+- [Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.svg)
 
 ### Phase 7 — Document and remove (completed)
 

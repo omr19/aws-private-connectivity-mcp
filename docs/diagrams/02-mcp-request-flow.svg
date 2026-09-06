@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470">
+  <style>.title{font:700 25px Arial;fill:#172033}.h{font:700 16px Arial;fill:#172033}.t{font:14px Arial;fill:#172033}.line{stroke:#475569;stroke-width:2;marker-end:url(#a)}.dash{stroke:#64748b;stroke-width:1.5;stroke-dasharray:6 5}</style>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker></defs>
+  <rect width="1200" height="470" fill="#fff"/><text x="35" y="40" class="title">MCP request flow: host → client → server → AWS evidence</text>
+  <text x="135" y="82" class="h">Kiro / Inspector</text><text x="415" y="82" class="h">MCP client</text><text x="675" y="82" class="h">FastMCP server</text><text x="985" y="82" class="h">AWS APIs</text>
+  <line x1="170" y1="100" x2="170" y2="420" class="dash"/><line x1="450" y1="100" x2="450" y2="420" class="dash"/><line x1="730" y1="100" x2="730" y2="420" class="dash"/><line x1="1040" y1="100" x2="1040" y2="420" class="dash"/>
+  <line x1="170" y1="135" x2="450" y2="135" class="line"/><text x="215" y="125" class="t">connect / initialize</text>
+  <line x1="450" y1="185" x2="730" y2="185" class="line"/><text x="540" y="175" class="t">tools/list</text>
+  <line x1="730" y1="235" x2="450" y2="235" class="line"/><text x="535" y="225" class="t">tool definitions</text>
+  <line x1="170" y1="285" x2="450" y2="285" class="line"/><text x="225" y="275" class="t">request diagnose tool</text>
+  <line x1="450" y1="335" x2="730" y2="335" class="line"/><text x="535" y="325" class="t">tools/call</text>
+  <line x1="730" y1="385" x2="1040" y2="385" class="line"/><text x="835" y="375" class="t">boto3 + IAM</text>
+  <line x1="1040" y1="420" x2="170" y2="420" class="line"/><text x="570" y="410" class="t">structured evidence and explanation</text>
+</svg>
