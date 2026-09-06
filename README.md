@@ -56,9 +56,9 @@ Each phase has a working checkpoint. Do not continue until the checkpoint can be
 
 ## Architecture diagrams
 
-The diagrams below are rendered directly in this README. Editable Mermaid source files remain under `docs/diagrams/` alongside the SVG presentation assets.
+The diagrams below show the approved, reproducible design directly in this README. Editable Mermaid source files and rendered SVG assets are kept under `docs/diagrams/` for maintainers.
 
-### End-to-end solution
+### End-to-end solution architecture
 
 ![End-to-end AWS private connectivity MCP architecture](docs/diagrams/01-end-to-end-architecture.svg)
 
@@ -67,17 +67,25 @@ The diagrams below are rendered directly in this README. Editable Mermaid source
 3. boto3 calls AWS APIs using the configured profile, region, and IAM permissions.
 4. AWS returns network or endpoint evidence, which the server normalizes into a structured MCP result.
 
-### MCP request flow
+### MCP diagnostic tool-call flow
 
 ![MCP request flow](docs/diagrams/02-mcp-request-flow.svg)
 
-The sequence makes the Host, Client, Server, Tool, transport, and AWS responsibility boundaries visible.
+1. The host asks the MCP client to connect and discover tools.
+2. The client and server exchange initialization and `tools/list` messages over Streamable HTTP.
+3. The host selects a diagnostic tool and the client sends `tools/call`.
+4. The tool calls AWS through boto3 and returns a structured evidence envelope.
+5. The host receives the result and explains it without receiving AWS write authority.
 
-### Diagnosis and remediation flow
+### Observe → diagnose → remediate flow
 
 ![Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.svg)
 
-The MCP server reports evidence and a likely cause. A human reviews and applies any change, then reruns the diagnostic to confirm recovery.
+1. Observe the path using Reachability Analyzer or endpoint inspection.
+2. Diagnose the likely root cause from AWS evidence, such as a security-group mismatch.
+3. Apply a narrow, human-approved change outside the MCP server.
+4. Re-run the same diagnostic and record the healthy result.
+5. Tear down the temporary lab after the exercise.
 
 ### Phase 1 — Local FastMCP server (completed)
 
