@@ -151,4 +151,4 @@ Directories will be populated progressively during the lab rather than generated
 
 Phases 1 and 2 completed in Kiro. The first AWS-backed identity check is working, and the CDK infrastructure stack has synthesized and passed review with no deployment yet. The returned topology is intentionally marked `mock`; the healthy AWS lab is the next deployment checkpoint.
 
-See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan.
+See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan. See [Reproduction and Teardown Runbook](docs/runbook.md) for complete IaC reproduction and cleanup instructions.

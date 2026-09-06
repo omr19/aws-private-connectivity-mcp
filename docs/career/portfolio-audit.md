@@ -21,6 +21,18 @@
 - EC2, interface endpoints, Secrets Manager, and other lab resources continue to incur charges until the CDK stack is destroyed.
 - The CDK stack uses learning-lab tags and destructive removal policies for controlled teardown.
 
+## Teardown checklist
+
+- [ ] Run `npx aws-cdk destroy --force` from `infrastructure/`.
+- [ ] Confirm `InfrastructureStack` is absent from CloudFormation.
+- [ ] Confirm no project-tagged EC2 instances or VPC endpoints remain.
+- [ ] Confirm the lab S3 bucket and Secrets Manager secret are removed.
+- [ ] Confirm no leftover Reachability Analyzer paths or analyses require cleanup.
+- [ ] Check the AWS console and cost view after teardown.
+- [ ] Preserve the CDK bootstrap stack only if another project still uses it.
+
+See `docs/runbook.md` for the complete reproduction and teardown procedure.
+
 ## Final review
 
 Before publicizing the project, review README accuracy, confirm GitHub repository visibility, run the end-to-end demo once, and destroy or explicitly retain AWS resources.
