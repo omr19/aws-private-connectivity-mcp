@@ -105,7 +105,7 @@ Then verify no application resources remain:
 aws cloudformation describe-stacks --stack-name InfrastructureStack --region eu-west-3
 aws ec2 describe-instances --filters Name=tag:Project,Values=aws-private-connectivity-mcp --region eu-west-3
 aws ec2 describe-vpc-endpoints --filters Name=tag:Project,Values=aws-private-connectivity-mcp --region eu-west-3
-aws s3api list-buckets --query "Buckets[?starts_with(Name, `infrastructurestack-privatetestbucket`)].Name"
+aws s3api list-buckets --query 'Buckets[?starts_with(Name, `infrastructurestack-privatetestbucket`)].Name'
 aws secretsmanager list-secrets --filters Key=name,Values=aws-private-connectivity-mcp/lab-secret --region eu-west-3
 ```
 
