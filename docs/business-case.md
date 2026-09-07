@@ -39,8 +39,8 @@ Public evidence assets are stored under `docs/screenshots/`. The original privat
 
 | File | Phase evidence | Status |
 | --- | --- | --- |
-| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup with targeted blur | Captured and redacted |
-| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` with targeted blur | Captured and redacted |
+| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup with targeted redaction | Captured and redacted |
+| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` with targeted redaction | Captured and redacted |
 | `03-inspector-connected.png` | `privatepath-local` connected over Streamable HTTP | Captured |
 | `04-tools-list.png` | Inspector discovers `get_lab_topology` | Captured |
 | `05-tool-result.png` | Tool execution returns topology JSON | Captured |
