@@ -35,12 +35,12 @@ The identity tool is the first non-mock AWS integration. It confirms that the se
 
 ## Phase 1 evidence and screenshot plan
 
-Public evidence assets are stored under `docs/screenshots/`. The original private captures are retained outside Git for audit purposes; the committed SVG evidence cards redact account IDs, ARNs, role/profile names, local usernames, and filesystem paths. Screenshots 03–05 contain only local MCP UI evidence and remain PNG captures. Do not commit browser tokens or credentials visible in URLs.
+Public evidence assets are stored under `docs/screenshots/`. The original private captures are retained outside Git for audit purposes. Screenshots 01 and 02 are flattened PNG captures with targeted blur over local usernames, machine names, and AWS profile values; screenshots 06–11 are sanitized SVG evidence cards that redact account IDs, ARNs, role/profile names, and resource IDs. Screenshots 03–05 contain only local MCP UI evidence and remain PNG captures. Do not commit browser tokens or credentials visible in URLs.
 
 | File | Phase evidence | Status |
 | --- | --- | --- |
-| `01-environment-and-repository.svg` | Sanitized local repo, Kiro project, and environment setup | Captured and redacted |
-| `02-fastmcp-server-running.svg` | Sanitized FastMCP server listening on `127.0.0.1:8000` | Captured and redacted |
+| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup with targeted blur | Captured and redacted |
+| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` with targeted blur | Captured and redacted |
 | `03-inspector-connected.png` | `privatepath-local` connected over Streamable HTTP | Captured |
 | `04-tools-list.png` | Inspector discovers `get_lab_topology` | Captured |
 | `05-tool-result.png` | Tool execution returns topology JSON | Captured |
@@ -55,8 +55,8 @@ Expected layout:
 
 ```text
 docs/screenshots/
-  01-environment-and-repository.svg
-  02-fastmcp-server-running.svg
+  01-environment-and-repository.png
+  02-fastmcp-server-running.png
   03-inspector-connected.png
   04-tools-list.png
   05-tool-result.png

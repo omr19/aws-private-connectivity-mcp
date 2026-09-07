@@ -98,9 +98,9 @@ Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results.
 
 **Evidence:**
 
-![FastMCP server running](docs/screenshots/02-fastmcp-server-running.svg)
+![FastMCP server running](docs/screenshots/02-fastmcp-server-running.png)
 
-- [Project and environment](docs/screenshots/01-environment-and-repository.svg)
+- [Project and environment](docs/screenshots/01-environment-and-repository.png)
 - [Inspector connection](docs/screenshots/03-inspector-connected.png)
 
 ### Phase 2 — Direct MCP client and Kiro

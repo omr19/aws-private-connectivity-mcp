@@ -15,7 +15,7 @@
 - [x] Run the teardown and verify every application resource is gone.
 - [x] Retain the CDK bootstrap stack for future CDK reproduction; it is separate from the application stack.
 - [x] Replace account-specific role/profile names and account IDs in public text with placeholders.
-- [x] Replace screenshots containing AWS identifiers or local usernames with sanitized public evidence cards.
+- [x] Replace screenshots containing AWS identifiers or local usernames with sanitized public evidence assets (targeted-blur PNGs for 01–02; SVG evidence cards for 06–11).
 - [x] Scan tracked files and reachable Git history for credential patterns; none found.
 
 ## Security and cost notes
