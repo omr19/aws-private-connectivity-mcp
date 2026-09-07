@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+  <style>
+    .title{font:700 25px Arial;fill:#172033}.h{font:700 17px Arial;fill:#172033}.t{font:15px Arial;fill:#172033}.small{font:13px Arial;fill:#334155}.box{stroke:#64748b;stroke-width:2;rx:12}.arrow{stroke:#475569;stroke-width:2.5;marker-end:url(#a)}
+  </style>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker></defs>
+  <rect width="1200" height="620" fill="#fff"/>
+  <text x="40" y="42" class="title">AWS Private Connectivity MCP — end-to-end architecture</text>
+  <rect x="35" y="75" width="270" height="465" fill="#eef6ff" class="box"/><text x="55" y="108" class="h">MCP host and clients</text>
+  <rect x="60" y="140" width="220" height="70" fill="#dbeafe" class="box"/><text x="80" y="170" class="t">Kiro / MCP Inspector</text><text x="80" y="193" class="small">Host and user interface</text>
+  <rect x="60" y="245" width="220" height="70" fill="#dbeafe" class="box"/><text x="80" y="275" class="t">Direct Python client</text><text x="80" y="298" class="small">Protocol verification</text>
+  <rect x="350" y="75" width="300" height="465" fill="#f2fdf5" class="box"/><text x="370" y="108" class="h">MCP server and AWS SDK</text>
+  <rect x="380" y="170" width="240" height="95" fill="#dcfce7" class="box"/><text x="405" y="205" class="t">FastMCP server</text><text x="405" y="228" class="small">Streamable HTTP :8000</text><text x="405" y="249" class="small">Read-only diagnostic tools</text>
+  <rect x="380" y="330" width="240" height="75" fill="#e2e8f0" class="box"/><text x="405" y="363" class="t">boto3 / AWS SDK</text><text x="405" y="386" class="small">Profile + region + IAM</text>
+  <rect x="700" y="75" width="465" height="465" fill="#fff8eb" class="box"/><text x="720" y="108" class="h">AWS lab in eu-west-3</text>
+  <rect x="735" y="145" width="185" height="75" fill="#fee2e2" class="box"/><text x="760" y="178" class="t">Application A</text><text x="760" y="201" class="small">EC2 in isolated subnet</text>
+  <rect x="965" y="145" width="165" height="75" fill="#fee2e2" class="box"/><text x="985" y="178" class="t">Application B</text><text x="985" y="201" class="small">TCP 8080</text>
+  <rect x="735" y="275" width="185" height="75" fill="#fef3c7" class="box"/><text x="755" y="308" class="t">Interface endpoint</text><text x="755" y="331" class="small">Secrets Manager :443</text>
+  <rect x="965" y="275" width="165" height="75" fill="#fef3c7" class="box"/><text x="990" y="308" class="t">S3 gateway</text><text x="990" y="331" class="small">Route-table path</text>
+  <rect x="820" y="405" width="220" height="75" fill="#e0f2fe" class="box"/><text x="855" y="438" class="t">Reachability Analyzer</text><text x="855" y="461" class="small">Path evidence and explanations</text>
+  <line x1="280" y1="175" x2="380" y2="210" class="arrow"/><line x1="280" y1="280" x2="380" y2="225" class="arrow"/><line x1="500" y1="265" x2="500" y2="330" class="arrow"/><line x1="620" y1="365" x2="735" y2="185" class="arrow"/><line x1="620" y1="365" x2="735" y2="312" class="arrow"/><line x1="620" y1="365" x2="965" y2="312" class="arrow"/><line x1="820" y1="442" x2="825" y2="350" class="arrow"/>
+  <text x="40" y="580" class="small">MCP standardizes discovery and tool calls; AWS IAM controls the underlying API access.</text>
+</svg>

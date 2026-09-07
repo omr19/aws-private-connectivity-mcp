@@ -20,26 +20,36 @@ This project packages that investigation as a small MCP toolset. An MCP host suc
 - Registered the server in Kiro Workspace MCP configuration with manual tool approval enabled.
 - Invoked the tool successfully from Kiro and received the same structured topology response.
 - Added and invoked `get_aws_identity`, confirming a real boto3 call through the `your-sandbox-profile` assumed role in `eu-west-3`.
+- Added and invoked `get_lab_resources`, returning the deployed CloudFormation outputs and resource inventory.
+- Added `diagnose_ec2_path` and validated healthy, blocked, and remediated TCP 8080 paths with Reachability Analyzer.
+- Added `diagnose_secrets_endpoint` and validated healthy, blocked, and remediated TCP 443 access to the Secrets Manager interface endpoint.
+- Added `inspect_s3_gateway_endpoint` to verify the S3 gateway endpoint and route-table associations without an additional Reachability Analyzer charge.
+- Deployed `InfrastructureStack` in `eu-west-3` and captured the resource outputs for the lab.
 - Created and reviewed the CDK stack for the healthy lab, including project tags, two isolated subnets, EC2 applications, S3 gateway endpoint, and Secrets Manager interface endpoint.
-- Bootstrapped the CDK environment in `eu-west-3`; the application stack remains intentionally undeployed at this checkpoint.
+- Bootstrapped the CDK environment in `eu-west-3` and deployed the tagged application stack.
+- Packaged the completed local workflow as a production-shaped, reproducible milestone with explicit AgentCore extension boundaries, runbook, cost controls, teardown verification, and portfolio diagrams.
 
-The current response is deliberately marked `status: mock`. This proves the MCP flow across three clients before AWS resources, permissions, and failure scenarios are introduced.
+`get_lab_topology` remains deliberately marked `status: mock`; the other tools demonstrate live AWS identity, CloudFormation, EC2, VPC endpoint, and Reachability Analyzer integration.
 
 The identity tool is the first non-mock AWS integration. It confirms that the server process uses its own exported AWS profile and region, which is why the initial default-profile result differed from the final assumed-role result.
 
 ## Phase 1 evidence and screenshot plan
 
-Screenshots should be copied into `docs/screenshots/` using the names below. The temporary screenshots shared in chat are the source evidence; do not commit browser tokens or credentials visible in URLs. Screenshots 01–07 are now captured and ready for the final documentation commit.
+Public evidence assets are stored under `docs/screenshots/`. The original private captures are retained outside Git for audit purposes. Screenshots 01 and 02 are flattened PNG captures with targeted blur over local usernames, machine names, and AWS profile values; screenshots 06–11 are sanitized SVG evidence cards that redact account IDs, ARNs, role/profile names, and resource IDs. Screenshots 03–05 contain only local MCP UI evidence and remain PNG captures. Do not commit browser tokens or credentials visible in URLs.
 
 | File | Phase evidence | Status |
 | --- | --- | --- |
-| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup | Captured |
-| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` | Captured |
+| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup with targeted redaction | Captured and redacted |
+| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` with targeted redaction | Captured and redacted |
 | `03-inspector-connected.png` | `privatepath-local` connected over Streamable HTTP | Captured |
 | `04-tools-list.png` | Inspector discovers `get_lab_topology` | Captured |
 | `05-tool-result.png` | Tool execution returns topology JSON | Captured |
-| `06-healthy-ec2-path.png` | Reachability Analyzer confirms the healthy EC2 path | Captured |
-| `07-blocked-ec2-path.png` | MCP identifies the intentional security-group failure | Captured |
+| `06-healthy-ec2-path.svg` | Sanitized Reachability Analyzer healthy EC2 path evidence | Captured and redacted |
+| `07-blocked-ec2-path.svg` | Sanitized MCP security-group failure evidence | Captured and redacted |
+| `08-healthy-secrets-endpoint.svg` | Sanitized healthy Secrets Manager interface endpoint evidence | Captured and redacted |
+| `09-blocked-secrets-endpoint.svg` | Sanitized interface endpoint security-group failure evidence | Captured and redacted |
+| `10-healthy-secrets-endpoint.svg` | Sanitized endpoint recovery evidence | Captured and redacted |
+| `11-s3-gateway-endpoint.svg` | Sanitized S3 gateway endpoint route evidence | Captured and redacted |
 
 Expected layout:
 
@@ -50,15 +60,31 @@ docs/screenshots/
   03-inspector-connected.png
   04-tools-list.png
   05-tool-result.png
-  06-healthy-ec2-path.png
-  07-blocked-ec2-path.png
+  06-healthy-ec2-path.svg
+  07-blocked-ec2-path.svg
+  08-healthy-secrets-endpoint.svg
+  09-blocked-secrets-endpoint.svg
+  10-healthy-secrets-endpoint.svg
+  11-s3-gateway-endpoint.svg
 ```
 
-Final documentation gate satisfied: screenshots 01–07 are present in this directory and marked captured above.
+Final documentation gate satisfied: screenshots 01–11 are present in this directory and marked captured above.
 
 ## Intended production-shaped use case
 
 The target lab will model Application A reaching Application B over TCP 8080, Secrets Manager through an interface VPC endpoint, and S3 through a gateway VPC endpoint. MCP tools will report evidence, likely root cause, and proposed remediation for one controlled fault at a time. They will not mutate networking or IAM configuration.
+
+## Career packaging gate
+
+Before the final portfolio release, add the following reusable career artifacts under `docs/career/`:
+
+- `resume-bullets.md` — concise, evidence-based resume bullets.
+- `linkedin-summary.md` — professional project summary for LinkedIn.
+- `github-description.md` — repository description and short project pitch.
+- `career-demonstration-matrix.md` — mapping of project evidence to demonstrated skills.
+- `portfolio-audit.md` — final quality, security, cost, and reproducibility review.
+
+These files must reference the implemented MCP flow, CDK/IaC deployment, IAM troubleshooting, EC2 Reachability Analyzer evidence, interface endpoint diagnosis, S3 gateway endpoint inspection, and the captured screenshots.
 
 ## Success criteria
 
@@ -67,3 +93,11 @@ The target lab will model Application A reaching Application B over TCP 8080, Se
 - Distinguish network reachability from IAM authorization.
 - Reprovision and remove the lab safely with IaC.
 - Store no credentials, Inspector tokens, or production data in Git.
+
+## Architecture diagrams
+
+- [End-to-end architecture](diagrams/01-end-to-end-architecture.md)
+- [MCP request flow](diagrams/02-mcp-request-flow.md)
+- [Diagnosis and remediation flow](diagrams/03-diagnosis-remediation-flow.md)
+
+Phase 5 is complete for this compact scope as deployment packaging and operational readiness. A future AgentCore Runtime deployment can reuse the same tool contract and IAM boundaries; it is intentionally not presented as already deployed.

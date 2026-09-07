@@ -2,7 +2,7 @@
 
 A deliberately small, hands-on project for learning the Model Context Protocol (MCP) end to end while diagnosing fixed AWS private-connectivity scenarios.
 
-The project will be built manually in Kiro and deployed to Amazon Bedrock AgentCore Runtime in `eu-west-3`. Infrastructure will be reproducible with AWS CDK for Python.
+The compact milestone is built manually in Kiro and runs locally with Streamable HTTP in `eu-west-3`. Infrastructure is reproducible with AWS CDK for Python; Amazon Bedrock AgentCore Runtime is a documented optional extension.
 
 ## Primary learning objective
 
@@ -12,7 +12,7 @@ Build enough of every layer to explain this flow clearly:
 User
   -> Kiro host
   -> MCP client
-  -> FastMCP server on AgentCore Runtime
+  -> FastMCP server (local Streamable HTTP; AgentCore-ready contract)
   -> AWS SDK
   -> AWS networking and IAM evidence
   -> structured MCP result
@@ -41,18 +41,51 @@ No ALB or NLB is required. The interface endpoint connects to the AWS-managed Se
 
 Only one fault will be enabled at a time. The MCP server will recommend remediation but will not change AWS networking or IAM configuration.
 
-## Planned MCP tools
+## Implemented MCP tools
 
 | Tool | Purpose |
 | --- | --- |
 | `get_lab_topology` | Return the known lab resources and expected paths. |
 | `diagnose_ec2_path` | Run and normalize an EC2-to-EC2 Reachability Analyzer result. |
-| `diagnose_interface_endpoint` | Inspect endpoint state, subnet, DNS, and security-group configuration. |
-| `diagnose_s3_access` | Separate gateway-route failures from limited S3 authorization failures. |
+| `diagnose_secrets_endpoint` | Run and normalize Application A to the Secrets Manager interface endpoint on TCP 443. |
+| `inspect_s3_gateway_endpoint` | Inspect the S3 gateway endpoint state and route-table associations. |
 
 ## Learning sequence
 
 Each phase has a working checkpoint. Do not continue until the checkpoint can be explained without relying on generated summaries.
+
+## Architecture diagrams
+
+The diagrams below show the approved, reproducible design directly in this README. Editable Mermaid source files and rendered SVG assets are kept under `docs/diagrams/` for maintainers.
+
+### End-to-end solution architecture
+
+![End-to-end AWS private connectivity MCP architecture](docs/diagrams/01-end-to-end-architecture.svg)
+
+1. Kiro, MCP Inspector, or the direct client sends an MCP request.
+2. The FastMCP server discovers and runs a narrowly scoped diagnostic tool.
+3. boto3 calls AWS APIs using the configured profile, region, and IAM permissions.
+4. AWS returns network or endpoint evidence, which the server normalizes into a structured MCP result.
+
+### MCP diagnostic tool-call flow
+
+![MCP request flow](docs/diagrams/02-mcp-request-flow.svg)
+
+1. The host asks the MCP client to connect and discover tools.
+2. The client and server exchange initialization and `tools/list` messages over Streamable HTTP.
+3. The host selects a diagnostic tool and the client sends `tools/call`.
+4. The tool calls AWS through boto3 and returns a structured evidence envelope.
+5. The host receives the result and explains it without receiving AWS write authority.
+
+### Observe → diagnose → remediate flow
+
+![Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.svg)
+
+1. Observe the path using Reachability Analyzer or endpoint inspection.
+2. Diagnose the likely root cause from AWS evidence, such as a security-group mismatch.
+3. Apply a narrow, human-approved change outside the MCP server.
+4. Re-run the same diagnostic and record the healthy result.
+5. Tear down the temporary lab after the exercise.
 
 ### Phase 1 — Local FastMCP server (completed)
 
@@ -63,6 +96,13 @@ Each phase has a working checkpoint. Do not continue until the checkpoint can be
 
 Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results. **Completed:** the server was started locally on `127.0.0.1:8000`, connected through MCP Inspector, and `get_lab_topology` returned structured JSON.
 
+**Evidence:**
+
+![FastMCP server running](docs/screenshots/02-fastmcp-server-running.png)
+
+- [Project and environment](docs/screenshots/01-environment-and-repository.png)
+- [Inspector connection](docs/screenshots/03-inspector-connected.png)
+
 ### Phase 2 — Direct MCP client and Kiro
 
 - Build a minimal Python MCP client.
@@ -72,7 +112,14 @@ Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results.
 
 Checkpoint: invoke the same server from the direct client, MCP Inspector, and Kiro. **Completed:** all three clients discovered and invoked `get_lab_topology` successfully.
 
-### Phase 3 — Healthy AWS lab
+**Evidence:**
+
+![MCP tools discovered](docs/screenshots/04-tools-list.png)
+
+- [Initial tool result](docs/screenshots/05-tool-result.png)
+- [Direct client](client/test_client.py)
+
+### Phase 3 — Healthy AWS lab (completed)
 
 Before provisioning the lab, the first AWS-backed checkpoint is complete: `get_aws_identity` successfully called AWS STS through boto3 and confirmed the `your-sandbox-profile` assumed role in `eu-west-3`.
 
@@ -83,23 +130,39 @@ Before provisioning the lab, the first AWS-backed checkpoint is complete: `get_a
 
 Checkpoint: prove the lab is healthy independently of MCP.
 
-### Phase 4 — AWS-backed MCP tools
+**Evidence:**
+
+![Healthy EC2 path](docs/screenshots/06-healthy-ec2-path.svg)
+
+- [End-to-end architecture](docs/diagrams/01-end-to-end-architecture.md)
+- [Healthy Secrets Manager endpoint](docs/screenshots/08-healthy-secrets-endpoint.svg)
+- [S3 gateway endpoint inspection](docs/screenshots/11-s3-gateway-endpoint.svg)
+
+### Phase 4 — AWS-backed MCP tools (completed)
 
 - Replace mock results with narrowly scoped AWS SDK calls.
 - Use Reachability Analyzer for the EC2 path.
 - Return evidence, root cause, and proposed remediation.
 
-Checkpoint: every tool reports `PASS` against the healthy lab.
+Checkpoint: every implemented diagnostic reports the expected healthy evidence against the deployed lab.
 
-### Phase 5 — AgentCore deployment
+**Evidence:** [MCP request-flow diagram](docs/diagrams/02-mcp-request-flow.svg) · [AWS-backed tool result](docs/screenshots/05-tool-result.png)
 
-- Package and deploy the FastMCP server to AgentCore Runtime.
-- Assign least-privilege AWS permissions.
-- Connect the direct client, Inspector, and Kiro to the remote endpoint.
+### Cost and retention note
 
-Checkpoint: the same tools work locally and remotely.
+The CDK source and synthesized CloudFormation template are the saved IaC. You do not need to run `npx aws-cdk deploy` again while the current lab is running; run it only for a future redeployment or update. CloudFormation does not add a separate charge for AWS-native resources, but deployed resources continue to incur their normal charges. The CDK bootstrap stack may be retained to simplify future reproduction. See `docs/runbook.md` for the retention decision and teardown verification.
 
-### Phase 6 — Controlled troubleshooting
+## Phase 5 — Production-shaped deployment packaging (completed)
+
+- Define the deployment boundary, least-privilege IAM requirements, and reproducible CDK workflow.
+- Document the local-to-remote MCP contract so the same tools can be moved to AgentCore Runtime.
+- Capture the operational runbook, cost controls, teardown process, and portfolio evidence.
+
+Checkpoint: the project is reproducible and production-shaped locally. AgentCore Runtime is an optional follow-on, not required for this compact milestone.
+
+**Evidence:** [CDK reproduction and teardown runbook](docs/runbook.md) · [Deployment architecture](docs/diagrams/01-end-to-end-architecture.svg)
+
+### Phase 6 — Controlled troubleshooting (completed)
 
 - Inject one fault at a time.
 - Diagnose it through Kiro.
@@ -108,11 +171,20 @@ Checkpoint: the same tools work locally and remotely.
 
 Checkpoint: distinguish security-group, endpoint, route, and IAM failures.
 
-### Phase 7 — Document and remove
+**Evidence:**
+
+![Blocked EC2 path](docs/screenshots/07-blocked-ec2-path.svg)
+
+- [Blocked Secrets Manager endpoint](docs/screenshots/09-blocked-secrets-endpoint.svg)
+- [Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.svg)
+
+### Phase 7 — Document and remove (completed)
 
 - Capture the architecture and MCP sequence.
 - Record expected results and limitations.
 - Destroy all AWS resources and confirm cleanup.
+
+**Evidence:** [Reproduction and teardown runbook](docs/runbook.md) · [Complete screenshot evidence](docs/business-case.md#phase-1-evidence-and-screenshot-plan)
 
 ## Repository structure
 
@@ -149,6 +221,8 @@ Directories will be populated progressively during the lab rather than generated
 
 ## Status
 
-Phases 1 and 2 completed in Kiro. The first AWS-backed identity check is working, and the CDK infrastructure stack has synthesized and passed review with no deployment yet. The returned topology is intentionally marked `mock`; the healthy AWS lab is the next deployment checkpoint.
+Phases 1–7 are completed for the compact milestone. The project includes a working local FastMCP server, direct client, Inspector and Kiro integrations, reproducible CDK/IaC, live AWS identity and resource tools, EC2 and interface-endpoint Reachability Analyzer diagnostics, S3 gateway endpoint inspection, controlled fault/remediation evidence, portfolio documentation, and verified AWS teardown. AgentCore Runtime remains a documented optional extension rather than an unperformed deployment. The original `get_lab_topology` response remains intentionally marked `mock` as a baseline tool.
 
-See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan.
+See [Business Case and Evidence](docs/business-case.md) for the project rationale, accomplishments, and screenshot/evidence plan. See [Reproduction and Teardown Runbook](docs/runbook.md) for complete IaC reproduction and cleanup instructions.
+
+See the [architecture diagram](docs/diagrams/01-end-to-end-architecture.md), [MCP sequence diagram](docs/diagrams/02-mcp-request-flow.md), and [troubleshooting flow](docs/diagrams/03-diagnosis-remediation-flow.md).
