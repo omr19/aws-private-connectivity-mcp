@@ -35,37 +35,37 @@ The identity tool is the first non-mock AWS integration. It confirms that the se
 
 ## Phase 1 evidence and screenshot plan
 
-Screenshots should be copied into `docs/screenshots/` using the names below. The temporary screenshots shared in chat are the source evidence; do not commit browser tokens or credentials visible in URLs. Screenshots 01–11 are now captured and ready for the final documentation commit.
+Public evidence assets are stored under `docs/screenshots/`. The original private captures are retained outside Git for audit purposes; the committed SVG evidence cards redact account IDs, ARNs, role/profile names, local usernames, and filesystem paths. Screenshots 03–05 contain only local MCP UI evidence and remain PNG captures. Do not commit browser tokens or credentials visible in URLs.
 
 | File | Phase evidence | Status |
 | --- | --- | --- |
-| `01-environment-and-repository.png` | Local repo, Kiro project, and environment setup | Captured |
-| `02-fastmcp-server-running.png` | FastMCP server listening on `127.0.0.1:8000` | Captured |
+| `01-environment-and-repository.svg` | Sanitized local repo, Kiro project, and environment setup | Captured and redacted |
+| `02-fastmcp-server-running.svg` | Sanitized FastMCP server listening on `127.0.0.1:8000` | Captured and redacted |
 | `03-inspector-connected.png` | `privatepath-local` connected over Streamable HTTP | Captured |
 | `04-tools-list.png` | Inspector discovers `get_lab_topology` | Captured |
 | `05-tool-result.png` | Tool execution returns topology JSON | Captured |
-| `06-healthy-ec2-path.png` | Reachability Analyzer confirms the healthy EC2 path | Captured |
-| `07-blocked-ec2-path.png` | MCP identifies the intentional security-group failure | Captured |
-| `08-healthy-secrets-endpoint.png` | Reachability Analyzer confirms the healthy Secrets Manager interface endpoint | Captured |
-| `09-blocked-secrets-endpoint.png` | MCP identifies the interface endpoint security-group failure | Captured |
-| `10-healthy-secrets-endpoint.png` | Endpoint access is restored and confirmed | Captured |
-| `11-s3-gateway-endpoint.png` | MCP verifies S3 gateway endpoint route-table associations | Captured |
+| `06-healthy-ec2-path.svg` | Sanitized Reachability Analyzer healthy EC2 path evidence | Captured and redacted |
+| `07-blocked-ec2-path.svg` | Sanitized MCP security-group failure evidence | Captured and redacted |
+| `08-healthy-secrets-endpoint.svg` | Sanitized healthy Secrets Manager interface endpoint evidence | Captured and redacted |
+| `09-blocked-secrets-endpoint.svg` | Sanitized interface endpoint security-group failure evidence | Captured and redacted |
+| `10-healthy-secrets-endpoint.svg` | Sanitized endpoint recovery evidence | Captured and redacted |
+| `11-s3-gateway-endpoint.svg` | Sanitized S3 gateway endpoint route evidence | Captured and redacted |
 
 Expected layout:
 
 ```text
 docs/screenshots/
-  01-environment-and-repository.png
-  02-fastmcp-server-running.png
+  01-environment-and-repository.svg
+  02-fastmcp-server-running.svg
   03-inspector-connected.png
   04-tools-list.png
   05-tool-result.png
-  06-healthy-ec2-path.png
-  07-blocked-ec2-path.png
-  08-healthy-secrets-endpoint.png
-  09-blocked-secrets-endpoint.png
-  10-healthy-secrets-endpoint.png
-  11-s3-gateway-endpoint.png
+  06-healthy-ec2-path.svg
+  07-blocked-ec2-path.svg
+  08-healthy-secrets-endpoint.svg
+  09-blocked-secrets-endpoint.svg
+  10-healthy-secrets-endpoint.svg
+  11-s3-gateway-endpoint.svg
 ```
 
 Final documentation gate satisfied: screenshots 01–11 are present in this directory and marked captured above.

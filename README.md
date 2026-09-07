@@ -98,9 +98,9 @@ Checkpoint: explain `tools/list`, `tools/call`, schemas, and structured results.
 
 **Evidence:**
 
-![FastMCP server running](docs/screenshots/02-fastmcp-server-running.png)
+![FastMCP server running](docs/screenshots/02-fastmcp-server-running.svg)
 
-- [Project and environment](docs/screenshots/01-environment-and-repository.png)
+- [Project and environment](docs/screenshots/01-environment-and-repository.svg)
 - [Inspector connection](docs/screenshots/03-inspector-connected.png)
 
 ### Phase 2 — Direct MCP client and Kiro
@@ -132,11 +132,11 @@ Checkpoint: prove the lab is healthy independently of MCP.
 
 **Evidence:**
 
-![Healthy EC2 path](docs/screenshots/06-healthy-ec2-path.png)
+![Healthy EC2 path](docs/screenshots/06-healthy-ec2-path.svg)
 
 - [End-to-end architecture](docs/diagrams/01-end-to-end-architecture.md)
-- [Healthy Secrets Manager endpoint](docs/screenshots/08-healthy-secrets-endpoint.png)
-- [S3 gateway endpoint inspection](docs/screenshots/11-s3-gateway-endpoint.png)
+- [Healthy Secrets Manager endpoint](docs/screenshots/08-healthy-secrets-endpoint.svg)
+- [S3 gateway endpoint inspection](docs/screenshots/11-s3-gateway-endpoint.svg)
 
 ### Phase 4 — AWS-backed MCP tools (completed)
 
@@ -173,9 +173,9 @@ Checkpoint: distinguish security-group, endpoint, route, and IAM failures.
 
 **Evidence:**
 
-![Blocked EC2 path](docs/screenshots/07-blocked-ec2-path.png)
+![Blocked EC2 path](docs/screenshots/07-blocked-ec2-path.svg)
 
-- [Blocked Secrets Manager endpoint](docs/screenshots/09-blocked-secrets-endpoint.png)
+- [Blocked Secrets Manager endpoint](docs/screenshots/09-blocked-secrets-endpoint.svg)
 - [Diagnosis and remediation flow](docs/diagrams/03-diagnosis-remediation-flow.svg)
 
 ### Phase 7 — Document and remove (completed)

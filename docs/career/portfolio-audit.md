@@ -14,10 +14,15 @@
 - [x] Keep the CDK source and synthesized template as the reusable IaC record; do not redeploy while the current lab is already running.
 - [x] Run the teardown and verify every application resource is gone.
 - [x] Retain the CDK bootstrap stack for future CDK reproduction; it is separate from the application stack.
+- [x] Replace account-specific role/profile names and account IDs in public text with placeholders.
+- [x] Replace screenshots containing AWS identifiers or local usernames with sanitized public evidence cards.
+- [x] Scan tracked files and reachable Git history for credential patterns; none found.
 
 ## Security and cost notes
 
 - No credentials, secret values, or Inspector tokens are committed.
+- Public evidence cards redact account IDs, ARNs, resource IDs, role/profile names, local usernames, and filesystem paths.
+- The original private captures are retained outside the repository for audit/reference only.
 - The MCP server does not mutate networking or IAM configuration.
 - Reachability Analyzer analyses incur usage charges; avoid repeated unnecessary runs.
 - EC2, interface endpoints, Secrets Manager, and other lab resources continue to incur charges until the CDK stack is destroyed.
@@ -37,4 +42,4 @@ See `docs/runbook.md` for the complete reproduction and teardown procedure.
 
 ## Final review
 
-Before publicizing the project, review README accuracy, confirm GitHub repository visibility, run the end-to-end demo once, and destroy or explicitly retain AWS resources.
+Before publicizing the project, review README accuracy, confirm GitHub repository visibility, run the end-to-end demo once, verify GitHub secret scanning, and destroy or explicitly retain AWS resources.
